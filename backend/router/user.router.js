@@ -7,4 +7,5 @@ router.post('/signUp', UserController.storeUserDetails);
 router.get('/user/:username/:password', UserController.getUserByUsername);
 router.delete('/user/:username', UserController.deleteUser);
 router.put('/user/update', UserController.updateUser);
+router.get('/voters', UserController.getVoters);
 module.exports = router;        

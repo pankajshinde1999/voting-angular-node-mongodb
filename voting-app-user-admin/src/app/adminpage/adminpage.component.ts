@@ -12,6 +12,7 @@ export class AdminpageComponent implements OnInit {
 
   candidateValue: any = [];
   value: string | null | undefined;
+  getcandidate1: any;
 
   constructor(private _service: AllService, private router: Router) {
   }
@@ -49,5 +50,13 @@ export class AdminpageComponent implements OnInit {
       console.log(el)
       this.ngOnInit()
     })
+  }
+  getcandidate(event:any){
+    console.log(event)
+    this.getcandidate1 = this.candidateValue.find((candidate:any )=>{
+      return candidate.candidate == event.target.innerText
+    })
+    console.log(this.getcandidate1)
+    console.log(this.getcandidate1.vote)
   }
 }

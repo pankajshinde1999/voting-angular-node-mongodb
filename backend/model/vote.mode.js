@@ -16,7 +16,8 @@ const voteSchema = new mongoose.Schema({
   },
   count: {
     type: Number
-  }
+  },
+  vote:[]
 });
 const VoteModel = mongoose.model('Vote', voteSchema);
 module.exports = VoteModel;

@@ -8,6 +8,21 @@ let getUserDetails = (req, res) => {
         res.json(result);
     });
 }
+let getVoters = (req, res) => {
+    let partyName = req.body.vote;
+    UserModel.find({ vote: partyName }, (err, result) => {
+        if (err) {
+            res.send(err);
+        } else {
+            const count = result.length;
+            res.json({
+                count,
+                result
+            });
+        }
+    });
+}
+
 //store user
 let storeUserDetails = (req, res) => {
     let userdetail = new UserModel({
@@ -71,4 +86,4 @@ let updateUser = (req, res) => {
         }
     });
 }
-module.exports = { getUserDetails, storeUserDetails, getUserByUsername, deleteUser, updateUser };
+module.exports = { getUserDetails, storeUserDetails, getUserByUsername, deleteUser, updateUser ,getVoters};

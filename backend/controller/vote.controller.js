@@ -7,11 +7,13 @@ let getVoteDetails = (req, res) => {
         res.json(result);
     });
 }
+
 let createCandidate = (req, res) => {
     let candidateDetails = new VoteModel({
         candidate: req.body.candidate,
         symbol: req.body.symbol,
         party: req.body.party,
+        voters : [],
         count: 0,
     })
     candidateDetails.save((err, result) => {
@@ -39,13 +41,20 @@ let deleteCadidate = (req, res) => {
 let updateCandidate = (req, res) => {
     let candidate = req.body.candidate;
     let count = req.body.count;
-    console.log(candidate, count);
-    VoteModel.findOneAndUpdate({ candidate: candidate }, { count: count }, { new: true }, (err, result) => {
-        if (err) {
-            res.send(err);
-        } else {
-            res.json(result);
+    let vote = req.body.username;
+
+    VoteModel.findOneAndUpdate(
+        { candidate: candidate },
+        { $set: { count: count }, $push: { vote: vote } },
+        { new: true },
+        (err, result) => {
+            if (err) {
+                res.send(err);
+            } else {
+                res.json(result);
+            }
         }
-    });
+    );
 }
-module.exports = { getVoteDetails, createCandidate, deleteCadidate, updateCandidate };
+
+module.exports = { getVoteDetails, createCandidate, deleteCadidate, updateCandidate }

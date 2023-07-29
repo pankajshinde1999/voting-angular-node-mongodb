@@ -15,6 +15,7 @@ export class UserpageComponent implements OnInit {
   user: any;
   status: any;
   vote: any;
+  votename: any;
   constructor(private _service: AllService, private router: Router, private auth: AuthGuard) {
     this.value = sessionStorage.getItem('token');
   }
@@ -44,8 +45,10 @@ export class UserpageComponent implements OnInit {
         this.user = users[i].username
         this.status = users[i].status
         this.vote = users[i].vote
+        this.votename = users[i].name
         console.log("user----->", this.user);
         console.log("status----->", this.status);
+        console.log("votename----->", this.votename);
       }
     }
   }
@@ -54,10 +57,11 @@ export class UserpageComponent implements OnInit {
     if (candidateref[0].candidate !== undefined && !Number.isNaN(candidateref[0].count)) {
       let cadidateName = candidateref[0].candidate;
       let cadidatecount = candidateref[0].count + 1;
-      // console.log(cadidatecount)
+      console.log(candidateref[0].voters)
       let body = {
         candidate: cadidateName,
-        count: cadidatecount
+        count: cadidatecount,
+        username : this.value
       }
       console.log(body)
       let userbody = {
@@ -65,6 +69,7 @@ export class UserpageComponent implements OnInit {
         status: true,
         vote: cadidateName
       }
+      console.log(userbody)
       if (body && userbody) {
         this._service.updateCandidate(body).subscribe(el => {
           console.log(el)

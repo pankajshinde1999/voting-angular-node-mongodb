@@ -31,6 +31,7 @@ let storeUserDetails = (req, res) => {
         email: req.body.email,
         password: req.body.password,
         phone: req.body.phone,
+        role:"user",
         status: false,
         vote: ""
     })
